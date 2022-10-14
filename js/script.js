@@ -32,27 +32,38 @@ const showPage = (list, page) => {
    const startIndex = page * 9 - 9;
   let endIndex = page * 9;
   const students = document.querySelector('.student-list');
+
   students.innerHTML = '';
 
-  for(let i = startIndex; i >= startIndex; i++) {
-   let studentItem = `
-   <li class="student-item cf">
-    <div class="student-details">
-      <img class="avatar" src=${list[i].picture.large} alt="Profile Picture">
-      <h3>${list[i].name.first} ${list[i].name.last}</h3>
-      <span class="email">${list[i].email}</span>
-    </div>
-    <div class="joined-details">
-      <span class="date">${list[i].registered.date}</span>
-    </div>
-  </li>
-   `
-   students.insertAdjacentHTML('beforeend', studentItem);
-  }
+   for (let i = startIndex; i >= startIndex && i < endIndex; i++) {
+    const student = `
+    <li class="student-item cf">
+      <div class="student-details">
+        <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
+        <h3>${list[i].name.first} ${list[i].name.last}</h3>
+        <span class="email">${list[i].email}</span>
+      </div>
+      <div class="joined-details">
+        <span class="date">Joined ${list[i].registered.date}</span>
+      </div>
+    </li>`;
+    students.insertAdjacentHTML('beforeend', student);
+  };
 }
 
 const addPagination = (list) => {
-   
+   let numOfPages = Math.ceil(list.length/9);
+
+   const pageBtnNum = document.querySelector(".link-list");
+   pageBtnNum.innerHTML = '';
+
+   for(let i = 0; i < numOfPages; i++) {
+      let list = document.createElement('li');
+      let btn = document.createElement('button');
+      btn.textContent = `${i+1}`;
+      list.append(btn);
+      pageBtnNum.append(list);
+   }
 }
 addPagination(data);
 
