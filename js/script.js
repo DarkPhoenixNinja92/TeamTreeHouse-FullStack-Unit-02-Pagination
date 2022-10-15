@@ -60,10 +60,27 @@ const addPagination = (list) => {
    for(let i = 0; i < numOfPages; i++) {
       let list = document.createElement('li');
       let btn = document.createElement('button');
+      btn.type = 'button';
       btn.textContent = `${i+1}`;
       list.append(btn);
       pageBtnNum.append(list);
    }
+   if(pageBtnNum.firstElementChild) {
+      pageBtnNum.firstElementChild.firstElementChild.className = 'active';
+   }
+
+   pageBtnNum.addEventListener('click', (event) => {
+      let button = event.target;
+      if(button.tagName === 'BUTTON') {
+         for(let i = 0; i < pageBtnNum.children.length; i++) {
+            if(button.className != 'active') {
+               button.className = 'active';
+            }
+            pageBtnNum.children[i].firstElementChild.className = '';
+         }
+      }
+      showPage(list, button.textContent);
+   });
 }
 addPagination(data);
 
