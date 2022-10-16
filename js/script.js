@@ -28,6 +28,21 @@ This function will create and insert/append the elements needed for the paginati
 
 
 // Call functions
+
+const searchBar = () => {
+   let search = document.createElement('div');
+   search.innerHTML = `
+   <label for="search" class="student-search">
+  <span>Search by name</span>
+  <input id="search" placeholder="Search by name...">
+  <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+</label>`;
+document.querySelector('header').appendChild(search);
+
+}
+
+searchBar();
+
 const showPage = (list, page) => {
    const startIndex = page * 9 - 9;
   let endIndex = page * 9;
