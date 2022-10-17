@@ -29,29 +29,18 @@ This function will create and insert/append the elements needed for the paginati
 
 // Call functions
 
-const searchBar = () => {
-   let search = document.createElement('div');
-   search.innerHTML = `
-   <label for="search" class="student-search">
-  <span>Search by name</span>
-  <input id="search" placeholder="Search by name...">
-  <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
-</label>`;
-document.querySelector('header').appendChild(search);
-
-}
-
-searchBar();
-
 const showPage = (list, page) => {
    const startIndex = page * 9 - 9;
   let endIndex = page * 9;
   const students = document.querySelector('.student-list');
 
   students.innerHTML = '';
-
    for (let i = startIndex; i >= startIndex && i < endIndex; i++) {
-    const student = `
+      if(endIndex > list.length) {
+         const diff = endIndex - list.length;
+         endIndex -= diff;
+      }
+      const student = `
     <li class="student-item cf">
       <div class="student-details">
         <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
@@ -63,7 +52,7 @@ const showPage = (list, page) => {
       </div>
     </li>`;
     students.insertAdjacentHTML('beforeend', student);
-  };
+   }
 }
 
 const addPagination = (list) => {
@@ -85,18 +74,30 @@ const addPagination = (list) => {
    }
 
    pageBtnNum.addEventListener('click', (event) => {
-      let button = event.target;
-      if(button.tagName === 'BUTTON') {
+      let target = event.target;
+      if(target.tagName === 'BUTTON') {
          for(let i = 0; i < pageBtnNum.children.length; i++) {
-            if(button.className != 'active') {
-               button.className = 'active';
+            if(target.className != 'active') {
+               target.className = 'active';
             }
             pageBtnNum.children[i].firstElementChild.className = '';
          }
       }
-      showPage(list, button.textContent);
+      showPage(list, target.textContent);
    });
 }
-addPagination(data);
 
+const searchBar = () => {
+   let search = document.createElement('div');
+   search.innerHTML = `
+   <label for="search" class="student-search">
+  <span>Search by name</span>
+  <input id="search" placeholder="Search by name...">
+  <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+</label>`;
+document.querySelector('header').appendChild(search);
+}
+
+searchBar();
+addPagination(data);
 showPage(data, 1);
