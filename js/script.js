@@ -76,7 +76,7 @@ const addPagination = (list) => {
    pageBtnNum.addEventListener('click', (event) => {
       let target = event.target;
       if(target.tagName === 'BUTTON') {
-         for(let i = 0; i < pageBtnNum.children.length; i++) {
+         for(let i = 0; i <= pageBtnNum.children.length; i++) {
             if(target.className != 'active') {
                target.className = 'active';
             }
