@@ -1,34 +1,10 @@
-/*
-Treehouse Techdegree:
-FSJS Project 2 - Data Pagination and Filtering
-*/
-
-
-
-/*
-For assistance:
-   Check out the "Project Resources" section of the Instructions tab: https://teamtreehouse.com/projects/data-pagination-and-filtering#instructions
-   Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
-*/
-
-
-
-/*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
-*/
-
-
-
-/*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
-*/
-
-
-
 // Call functions
 
+/* The function to display the contents of the page. It sets the default index values for how long each page should be. Uses a for loop to print up to 9 items on the page
+depending on how long the provided data loop is.
+
+It also includes a conditional inside the loop to modify the endIndex variable so this function isn't trying to create list items that don't exist.
+*/
 const showPage = (list, page) => {
    const startIndex = page * 9 - 9;
   let endIndex = page * 9;
@@ -55,6 +31,11 @@ const showPage = (list, page) => {
    }
 }
 
+/*
+Separates my data into "pages" of 9 or less items per page and enables users to move between items using page buttons at the bottom of the page.
+Adds an active class to the button with the text of "1" by default but changes the active button when the user clicks to move to another page.
+*/
+
 const addPagination = (list) => {
    let numOfPages = Math.ceil(list.length/9);
 
@@ -73,18 +54,18 @@ const addPagination = (list) => {
       pageBtnNum.firstElementChild.firstElementChild.className = 'active';
    }
 
-   pageBtnNum.addEventListener('click', (event) => {
+   pageBtnNum.addEventListener("click", (event) => {
       let target = event.target;
-      if(target.tagName === 'BUTTON') {
-         for(let i = 0; i < pageBtnNum.children.length; i++) {
-            if(target.className != 'active') {
-               target.className = 'active';
-            }
-            pageBtnNum.children[i].firstElementChild.className = '';
-         }
+      if (target.tagName === "BUTTON") {
+        for (let i = 0; i < pageBtnNum.children.length; i++) {
+          pageBtnNum.children[i].firstElementChild.className = "";
+          if (target.className != "active") {
+            target.className = "active";
+          }
+        }
+        showPage(list, target.textContent);
       }
-      showPage(list, target.textContent);
-   });
+    });
 }
 
 const searchBar = () => {
@@ -96,8 +77,9 @@ const searchBar = () => {
   <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
 </label>`;
 document.querySelector('header').appendChild(search);
+
 }
 
-searchBar();
 addPagination(data);
 showPage(data, 1);
+searchBar();
