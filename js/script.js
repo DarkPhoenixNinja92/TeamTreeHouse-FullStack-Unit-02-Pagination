@@ -67,7 +67,10 @@ const addPagination = (list) => {
       }
     });
 }
-
+/*
+The initial render for my html search bar. The plan is to eventually have it search through the rendered data and only display the parats with a name that matches
+what was searched for. As of right now, it just exists and doesn't actually do anything.
+*/
 const searchBar = () => {
    let search = document.createElement('div');
    search.innerHTML = `
