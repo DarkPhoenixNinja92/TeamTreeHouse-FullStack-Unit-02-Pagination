@@ -16,6 +16,10 @@ const showPage = (list, page) => {
          const diff = endIndex - list.length;
          endIndex -= diff;
       }
+      /*
+      The student variable creates a "card" which contains all the data that should be printed to the page for every student item that exists
+      within the data being used to provide all the student information. This card is then inserted into the html as items in an empty unordered list.
+      */
       const student = `
     <li class="student-item cf">
       <div class="student-details">
@@ -42,6 +46,11 @@ const addPagination = (list) => {
    const pageBtnNum = document.querySelector(".link-list");
    pageBtnNum.innerHTML = '';
 
+   /*
+   The following for loop creates the pagination buttons at the bottom of the page that can be used to navigatate through the list of students.
+   The number of buttons will vary based on how many students are present in the list.
+   */
+   
    for(let i = 0; i < numOfPages; i++) {
       let list = document.createElement('li');
       let btn = document.createElement('button');
@@ -50,10 +59,16 @@ const addPagination = (list) => {
       list.append(btn);
       pageBtnNum.append(list);
    }
+   
    if(pageBtnNum.firstElementChild) {
       pageBtnNum.firstElementChild.firstElementChild.className = 'active';
    }
 
+   /*
+   This event listener modifies the buttons so that the buttons will become
+   active when they are clicked on so that the active button reflects the page currently being shown to the user.
+   */
+   
    pageBtnNum.addEventListener("click", (event) => {
       let target = event.target;
       if (target.tagName === "BUTTON") {
